@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Generate, customize, copy, and download QR codes right in your browser." />
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="page-header">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="14" y="3" width="7" height="7" rx="1" />
+          <rect x="3" y="14" width="7" height="7" rx="1" />
+          <path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1" />
+        </svg>
+      </div>
+      <h1>QR Code Generator</h1>
+      <p>Turn any text or link into a scannable QR code — instantly, privately, and for free.</p>
+    </header>
+
+    <main class="layout">
+      <!-- LEFT COLUMN: controls -->
+      <div class="controls">
+        <section class="card" aria-labelledby="content-title">
+          <div class="card-heading">
+            <span class="step">1</span>
+            <h2 id="content-title">Your content</h2>
+          </div>
+
+          <label class="field-label" for="qr-text">Text or URL</label>
+          <textarea
+            id="qr-text"
+            placeholder="https://example.com"
+            spellcheck="false"
+            autocomplete="off"
+            aria-describedby="text-hint text-error"
+          ></textarea>
+
+          <div class="field-meta">
+            <span id="text-hint" class="hint">Anything you like — a link, a message, Wi-Fi details…</span>
+            <span id="char-count" class="counter">0 / 1000 bytes</span>
+          </div>
+          <p id="text-error" class="error-message" role="alert" aria-live="polite"></p>
+        </section>
+
+        <section class="card" aria-labelledby="style-title">
+          <div class="card-heading">
+            <span class="step">2</span>
+            <h2 id="style-title">Style &amp; size</h2>
+          </div>
+
+          <div class="color-grid">
+            <div class="color-field">
+              <label class="field-label" for="fg-color">Foreground</label>
+              <div class="color-input-group">
+                <input type="color" id="fg-color" value="#111827" aria-label="Foreground color picker" />
+                <input type="text" id="fg-hex" class="hex-input" value="#111827" maxlength="7"
+                       spellcheck="false" aria-label="Foreground hex color" />
+              </div>
+            </div>
+
+            <div class="color-field">
+              <label class="field-label" for="bg-color">Background</label>
+              <div class="color-input-group">
+                <input type="color" id="bg-color" value="#ffffff" aria-label="Background color picker" />
+                <input type="text" id="bg-hex" class="hex-input" value="#ffffff" maxlength="7"
+                       spellcheck="false" aria-label="Background hex color" />
+              </div>
+            </div>
+          </div>
+
+          <div class="size-field">
+            <div class="size-heading">
+              <label class="field-label" for="qr-size">Size</label>
+              <output id="size-value" for="qr-size">512 px</output>
+            </div>
+            <input type="range" id="qr-size" min="128" max="1024" step="64" value="512" />
+            <div class="range-labels" aria-hidden="true"><span>128</span><span>1024 px</span></div>
+          </div>
+        </section>
+
+        <section class="card actions-card" aria-labelledby="actions-title">
+          <div class="card-heading">
+            <span class="step">3</span>
+            <h2 id="actions-title">Export</h2>
+          </div>
+
+          <div class="button-grid">
+            <button type="button" id="download-png" class="btn btn-primary" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3" /></svg>
+              Download PNG
+            </button>
+            <button type="button" id="download-svg" class="btn btn-secondary" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3" /></svg>
+              Download SVG
+            </button>
+            <button type="button" id="copy-image" class="btn btn-secondary" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></svg>
+              Copy image
+            </button>
+            <button type="button" id="copy-text" class="btn btn-secondary" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" /></svg>
+              Copy text
+            </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: live preview -->
+      <section class="card preview-card" aria-labelledby="preview-title">
+        <div class="card-heading">
+          <h2 id="preview-title">Live preview</h2>
+          <span class="live-badge"><span class="live-dot"></span>Live</span>
+        </div>
+
+        <div class="preview-frame">
+          <canvas id="qr-canvas" class="qr-canvas is-hidden" aria-label="Generated QR code"></canvas>
+          <div id="preview-placeholder" class="preview-placeholder">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1" /><rect x="14" y="3" width="7" height="7" rx="1" /><rect x="3" y="14" width="7" height="7" rx="1" /><path d="M14 14h3v3h-3zM20 14v3M14 20h3M20 20h1" /></svg>
+            <p>Your QR code will appear here</p>
+            <span>Start typing on the left to see it instantly</span>
+          </div>
+        </div>
+
+        <div class="preview-meta">
+          <span id="qr-meta">Waiting for input…</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer">
+      <span>Everything happens in your browser. Nothing is uploaded.</span>
+      <span>Made for quick, private QR codes.</span>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="vendor/qrcode.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
