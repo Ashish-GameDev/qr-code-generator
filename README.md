@@ -16,7 +16,9 @@ A simple, modern, responsive QR code generator that runs entirely in your browse
 
 ## How to run
 
-Use the hosted URL above, or open `index.html` in any modern web browser. That's it.
+Open the live demo: https://ashish-gamedev.github.io/qr-code-generator/
+
+No installation or setup needed — just visit the link in your browser and start generating QR codes. To run a copy locally instead, open `index.html` in any modern web browser.
 
 Everything is processed locally — your data is never uploaded anywhere.
 
