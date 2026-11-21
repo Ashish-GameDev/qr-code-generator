@@ -2,6 +2,8 @@
 
 A simple, modern, responsive QR code generator that runs entirely in your browser. No build tools, no server, no internet connection needed.
 
+**Live demo (hosted with GitHub Pages from this repo):** https://ashish-gamedev.github.io/qr-code-generator/
+
 ## Features
 
 - Generate QR codes from any text, URL, or other content
@@ -14,7 +16,7 @@ A simple, modern, responsive QR code generator that runs entirely in your browse
 
 ## How to run
 
-Open `index.html` in any modern web browser. That's it.
+Use the hosted URL above, or open `index.html` in any modern web browser. That's it.
 
 Everything is processed locally — your data is never uploaded anywhere.
 
